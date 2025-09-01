@@ -1,12 +1,9 @@
 package com.devsuperior.crud_clientes.dto;
 
 import com.devsuperior.crud_clientes.entities.Client;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
@@ -14,7 +11,6 @@ public class ClientDTO {
 
     private Long id;
 
-    @Size(min = 3, max = 80, message = "O nome deve ter entre 3 e 80 caracteres")
     @NotBlank(message = "Campo obrigatório")
     private String name;
     private String cpf;
@@ -22,6 +18,7 @@ public class ClientDTO {
     @Positive(message = "A renda deve ser um valor positivo")
     private Double income;
 
+    @PastOrPresent(message = "A data de nascimento não pode ser futura")
     private LocalDate birthDate;
     private Integer children;
 
@@ -36,6 +33,7 @@ public class ClientDTO {
         this.birthDate = birthDate;
         this.children = children;
     }
+
     public ClientDTO(Client entity) {
         id = entity.getId();
         name = entity.getName();
